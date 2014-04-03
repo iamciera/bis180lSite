@@ -7,18 +7,18 @@
         <meta name="viewport" content="width=device-width">
 
         <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
 
     </head>
     <body>
 
         <div class="site">
           <div class="header">
-            <h1 class="title"><a href="/">Genomics BIS180L - UC Davis Spring 2014</a></h1>
-            <a class="extra" href="/">home</a>
+            <h1 class="title"><a href="{{ site.baseurl }}/">Genomics BIS180L - UC Davis Spring 2014</a></h1>
+            <a class="extra" href="{{ site.baseurl }}/">home</a>
           </div>
 
           {{ content }}
@@ -28,8 +28,8 @@
               <p>
                 <b>Resouces<br />
                 <a href = "http://daringfireball.net/projects/markdown/syntax">Markdown Syntax Guide</a><br />
-                <a href = "/docs/ianCheatSheet.html"> Ian's Unix Cheat Sheet</a><br />
-                <a href="/docs/virtualMachine.html">Installing and Using Virtual Machine</a>
+                <a href = "{{ site.baseurl }}/docs/ianCheatSheet.html"> Ian's Unix Cheat Sheet</a><br />
+                <a href="{{ site.baseurl }}/docs/virtualMachine.html">Installing and Using Virtual Machine</a>
               </p>
             </div>
 

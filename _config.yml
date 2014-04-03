@@ -1,3 +1,4 @@
 name: Genomics BIS180L - UC Davis Spring 2014
 markdown: redcarpet
 pygments: true
+baseurl: /reproducibility-guide
