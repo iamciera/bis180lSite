@@ -1,4 +1,6 @@
-bis180lSite
-===========
+This is a site built and maintained by Ciera Martinez for Genomics BIS180L UC Davis.  
 
-Website for UC Davis Class Genomics BIS180L Spring quarter 2014.
+Written with [Markdown](https://daringfireball.net/projects/markdown/).  
+
+Compiled by [Jekyll](http://jekyllrb.com/) - version 1.5.1
+

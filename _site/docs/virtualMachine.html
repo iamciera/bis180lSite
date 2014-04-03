@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Genomics BIS180L - UC Davis Spring 2014</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h1>Instructions on installing and using the BIS180L virtual linux machine</h1>
+
+<h2>About</h2>
+
+<p>Most bioinformatics software runs on linux or unix (including MAC) computers.  For this class we will work in a linux environment.  Since the computer labs have Windows machines we will run linux in a virtual environment.</p>
+
+<p>Specifically we will run a program called <a href="https://www.virtualbox.org/">VirtualBox</a> on the Windows machine (<a href="http://en.wikipedia.org/wiki/VirtualBox">more info</a>).  Virtualbox creates a virtual machine, hosted on the Windows PC, which will run linux.  The virtual linux machine has a virtual disk which will live on your flash drive.  This way files that you save can be used from class to class.  In addition you can install virtualbox on your personal computer, insert the flashdrive, and use the same virtual linux machine that you are using here.</p>
+
+<p>If you are curious about what version of linux we are using, and what programs I installed, please see the document &quot;Creating the machine image&quot; on SmartSite resources.</p>
+
+<h2>Format the flash drive as &quot;ExFat&quot;</h2>
+
+<p>Your flash drive is probably formatted in &quot;Fat32&quot; format.  This file format has a limitation of 4GB for maximum file size.  The file containing the linux virtual drive is ~ 8GB so we need to change the format of the flash drive.  <em>This only needs to be done once</em></p>
+
+<p>** Warning this will erase all files on your flash drive **</p>
+
+<ul>
+<li>Insert your flash drive into a USB port</li>
+<li>Click on the &quot;Start&quot; menu, lower left, and then click on computer.</li>
+<li>Right click on the flash drive (probably labelled &quot;E:...&quot; or  &quot;F:...&quot;)</li>
+<li>Choose &quot;Format&quot;</li>
+<li>Choose &quot;ExFat&quot;</li>
+<li>Click &quot;Start&quot; and then &quot;OK&quot;</li>
+</ul>
+
+<p>(Will be demoed in class)</p>
+
+<h2>Get the BIS180L image</h2>
+
+<p>Follow the instructions given in class to find the BIS180L_lubuntu64 folder
+Drag the folder onto your newly formatted flash drive.</p>
+
+<h2>Unpack and start the virtual machine.</h2>
+
+<p>Look inside the BIS180L_lubuntu64 folder on your flash drive.  There will be several files.</p>
+
+<ul>
+<li>&quot;BIS180L_lubuntu64.vdi&quot;--this is the virtual disk drive</li>
+<li>&quot;BIS180L_lubuntu64.vbox&quot;--this contains information about the virtual machine.</li>
+</ul>
+
+<p>Double click the &quot;BIS180L_lubuntu64.vbox&quot; file.  This should start the virtual machine.  You may need to press &quot;start&quot; in the virtualbox window.  It will take a about 1 minute to boot.  When the boot is complete you should see a window that looks like this (see next page):</p>
+
+<p><img src="file:///Users/jmaloof/Dropbox/Notational%20images/BIS180L_screenshot.png" alt="BIS180L linux desktop"></p>
+
+<h2>Username and Password</h2>
+
+<p>The machine is set to logon the user automatically.  But if you need the username and password they are:</p>
+
+<p>username: bios180student</p>
+
+<p>password: bioinformatics</p>
+
+<h2>Using the machine.</h2>
+
+<p>You can resize the &quot;screen&quot; by dragging from the lower-right corner.</p>
+
+<p>You should be able to cut and paste between your host machine and the virtual machine.  Mac users note that inside the virtual machine you will need to use ctrl-C, not CMD-c, etc.  Also the cut and paste commands for the terminal are shift-ctrl-C and shift-ctrl-V.</p>
+
+<p>The icons at the bottom left give you access to various programs.  </p>
+
+<p>From left to right:</p>
+
+<ul>
+<li>Start menu.  This gives you access to system preferences and a variety of programs.</li>
+<li>File manager.  Equivalent to the Mac &quot;Finder&quot; or Windows &quot;Explorer&quot;</li>
+<li>Terminal.  Access the linux comand line.</li>
+<li>gedit.  A text editor for programming.</li>
+<li>Firefox.</li>
+<li>Abiword, a word processor.</li>
+<li>Gnumeric, a spreadsheet application</li>
+<li>A PDF viewer</li>
+<li>Rstudio</li>
+<li>IGV</li>
+<li>Jalview</li>
+<li>Cytoscape</li>
+<li>This button will collapse windows</li>
+<li>This button allows you to switch desktops</li>
+</ul>
+
+<h2>Install VirtualBox at home</h2>
+
+<p>If you want to do this at home you need to install VirtualBox.  It is free.</p>
+
+<p>Download and install <a href="https://www.virtualbox.org/">VirtualBox</a></p>
+
+<p>Direct link to <a href="https://www.virtualbox.org/wiki/Downloads">download page.</a>  You do not need the extension pack.</p>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                <b>Resouces<br />
+                <a href = "http://daringfireball.net/projects/markdown/syntax">Markdown Syntax Guide</a><br />
+                <a href = "/docs/ianCheatSheet.html"> Ian's Unix Cheat Sheet</a><br />
+                <a href="/docs/virtualMachine.html">Installing and Using Virtual Machine</a>
+              </p>
+            </div>
+
+            <div class="contact">
+              <p>
+                
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

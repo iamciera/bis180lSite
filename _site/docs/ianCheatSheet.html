@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Genomics BIS180L - UC Davis Spring 2014</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Unix Reference</h2>
+
+<p>| Token  | Function
+|:--------|:-------------------------------------|
+| .       | your current directory (see pwd)
+| ..      | your parent directory
+| ~       | your home directory (also $HOME)
+| ^c      | send interrupt signal to current process
+| ^d      | send end-of-file character
+| ^z      | send sleep signal current process: see bg and fg
+| tab     | tab-complete names
+| *       | wildcard - matches everything
+| &amp;       | send command to background
+| |      | pipe output from one command to another
+| &gt;       | redirect output to file</p>
+
+<p>| Command   | Example       | Intent                        |
+|:----------|:--------------|:------------------------------|
+| <code>bg</code>      | <code>bg</code>          | send a sleeping process to background
+| <code>cat</code>     | <code>cat &gt; f</code>     | create file f and wait for keyboard (see ^d)
+|           | <code>cat f</code>       | stream contents of file f to STDOUT
+|           | <code>cat a b &gt; c</code> | concatenate files a and b into c
+| <code>cd</code>      | <code>cd d</code>        | change to relative directory d
+|           | <code>cd ..</code>       | go up one directory
+|           | <code>cd /d</code>       | change to absolute directory d
+| <code>chmod</code>   | <code>chmod 644 f</code> | change file permissions 
+|           | <code>chmod u+x f</code> | change file permissions
+| <code>cp</code>      | <code>cp f1 f2</code>    | make a copy of file f1 called f2
+| <code>cut</code>     | <code>cut -f 5 ff</code> | print column 5 from file ff
+| <code>date</code>    | <code>date</code>        | print the current date
+| <code>df</code>      | <code>df -h .</code>     | display free space on file system
+| <code>du</code>      | <code>du -h ~</code>     | display the sizes of your files
+| <code>fg</code>      | <code>fg</code>          | send sleeping process to foreground
+| <code>grep</code>    | <code>grep p f</code>    | print lines with the letter p in file f
+| <code>gzip</code>    | <code>gzip f</code>      | compress file f
+| <code>gunzip</code>  | <code>gunzip f.gz</code> | uncompress file f.gz
+| <code>head</code>    | <code>head f</code>      | display the first 10 lines of file f
+|           | <code>head -2 f</code>   | display the first 2 lines of file f
+| <code>history</code> | <code>history</code>     | display the recent commands you typed
+| <code>kill</code>    | <code>kill 1023</code>   | kill process with id 1023
+| <code>less</code>    | <code>less f</code>      | page through a file
+| <code>ln</code>      | <code>ln -s f1 f2</code> | make f2 an alias of f1
+| <code>ls</code>      | <code>ls</code>          | list current directory
+|           | <code>ls -l</code>       | list with file details
+|           | <code>ls -la</code>      | also show invisible files
+|           | <code>ls -lta</code>     | sort by time instead of name
+|           | <code>ls -ltaF</code>    | also show file type symbols
+| <code>man</code>     | <code>man ls</code>      | read the manual page on ls command
+| <code>mkdir</code>   | <code>mkdir d</code>     | make a directory named d
+| <code>more</code>    | <code>more f</code>      | page through file f (see less)
+| <code>mv</code>      | <code>mv foo bar</code>  | rename file foo as bar
+|           | <code>mv foo ..</code>   | move file foo to parent directory
+| <code>nano</code>    | <code>nano</code>        | use the nano text file editor
+| <code>passwd</code>  | <code>passwd</code>      | change your password
+| <code>pwd</code>     | <code>pwd</code>         | print working directory
+| <code>ps</code>      | <code>ps</code>          | show current processes
+|           | <code>ps -u ian</code>   | show processes user ian is running
+| <code>rm</code>      | <code>rm f1 f2</code>    | remove files f1 and f2
+|           | <code>rm -r d</code>     | remove directory d and all files beneath
+|           | <code>rm -rf /</code>    | destroy your computer
+| <code>rmdir</code>   | <code>rmdir d</code>     | remove directory d
+| <code>sort</code>    | <code>sort f</code>      | sort file f alphabetically by first column
+|           | <code>sort -n f</code>   | sort file f numerically by first column
+|           | <code>sort -k 2 f</code> | sort file f alphabetically by column 2
+| <code>ssh</code>     | <code>ssh hal</code>     | remotely log into machine hal
+| <code>tail</code>    | <code>tail f</code>      | display the last 10 lines of file f
+|           | <code>tail -f f</code>   | as above and keep displaying if file is open
+| <code>tar</code>     | <code>tar -cf ...</code> | create a compressed tar-ball (-z to compress)
+|           | <code>tar -xf ...</code> | decompress a tar-ball (-z if compressed)
+| <code>time</code>    | <code>time ...</code>    | determine how much time a process takes
+| <code>top</code>     | <code>top</code>         | display processes running on your system
+| <code>touch</code>   | <code>touch f</code>     | update file f modification time (create if needed)
+| <code>wc</code>      | <code>wc f</code>        | count the lines, words, and characters in file f</p>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                <b>Resouces<br />
+                <a href = "http://daringfireball.net/projects/markdown/syntax">Markdown Syntax Guide</a><br />
+                <a href = "/docs/ianCheatSheet.html"> Ian's Unix Cheat Sheet</a><br />
+                <a href="/docs/virtualMachine.html">Installing and Using Virtual Machine</a>
+              </p>
+            </div>
+
+            <div class="contact">
+              <p>
+                
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

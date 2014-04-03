@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Ian Korf Unit 1 - Lab 1</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Genomics BIS180L - UC Davis Spring 2014</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Ian Korf Unit 1 - Lab 1</h2>
+<p class="meta">04 Apr 2014</p>
+
+<div class="post">
+<h1>Lab #1: Sequence Alignment</h1>
+
+<h2>Part 1: Getting Organized</h2>
+
+<p>If you look at the <code>/data</code> directory, you will see that there are 3
+sub-directories for 3 different genomes. Each of these files was
+downloaded directly from its source genome project (TAIR, WormBase,
+FlyBase). There are files for proteins and files for genomes (the A.
+thaliana files are in separate chromosomes while the worm and fly have
+all the sequences in a single file).</p>
+
+<p>Now lets organize the files a little to make our lives easier. Create a
+subdirectory in your home directory called <code>Dat</code>a. Create
+sub-directories for each species, and alias the sequences into each
+directory. Also create sub-directories under <code>Data</code> that organize by
+sequence type rather than species. In the end, your hierarchical
+structure should look like this.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Data
+    Sequences
+        Genome
+            A.thaliana.fa
+            C.elegans.fa
+            D.melanogaster.fa
+        Proteome
+            A.thaliana.fa
+            C.elegans.fa
+            D.melanogaster.fa
+    Species
+        A.thaliana
+            genome.fa
+            protein.fa
+        C.elegans
+            genome.fa
+            protein.fa
+        D.melanogaster
+            genome.fa
+            protein.fa
+</code></pre></div>
+<p>Note that the files do not have <code>.gz</code> extensions because they have been
+uncompressed. Furthermore, the A.thaliana chromosomes have all been
+merged into a single file. You should not need to duplicate sequences.
+That is, <code>Sequences/Genome/A.thaliana.fa</code> and
+<code>Species/A.thaliana/genome.fa</code> should contain the same thing, so no need
+to duplicate the data unnecessarily (i.e. make an alias). Lastly, the
+file permissions should be &quot;appropriate&quot;. When you have completed these
+tasks, change directory to your home directory and run the following
+command.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">ls -lR Data &gt; data_info.txt
+</code></pre></div>
+<h2>Part 2: Lab Notebook</h2>
+
+<p>It is now time to start doing some bioinformatics experiments. Create a
+new directory to organize your thoughts and files.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">mkdir ~/Lab1
+cd ~/Lab1
+</code></pre></div>
+<p>Open up another terminal, change to the directory you just created, and
+start a log where you can keep notes. This will be your laboratory
+notebook for this unit. You&#39;re going to be attaching this to a SmartSite
+assignment along with other files.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">cd ~/Lab1
+nano lab1_notebook.md
+</code></pre></div>
+<p>The format of the file will be Markdown. If you aren&#39;t familiar with
+Markdown format, go check it out online. It&#39;s just standardized way of
+writing plain text files that is easily converted into other formats.</p>
+
+<p>Create a simple table with the following information for each species.</p>
+
+<ol>
+<li>Size of the file</li>
+<li>Number of chromosomes</li>
+<li>Size of the genome in bp</li>
+<li>Number of protein-coding genes</li>
+<li>Average protein length</li>
+</ol>
+
+<p>The size of the file is very easy to determine. You can use <code>ls</code> or <code>wc</code>
+for that. To find the various chromosomes, use <code>grep</code>. The size of the
+genome will be the number of {ACGT} letters. This is a little
+complicated because it&#39;s not the size of the file. The files also have
+newline characters and FASTA headers. You need to subtract these.
+Fortunately, you can all of this with the Unix skills you already have.</p>
+
+<h2>Part 3: Local Alignment</h2>
+
+<p>The program we are going to use for alignment is called <code>water</code>, which
+is named after the <strong>Smith-Waterman</strong> algorithm. This comes from the
+<strong>EMBOSS</strong> suite of bioinformatics programs, which is installed on your
+system. One of the first things you should do when using a new program
+is to skim the documentation. Some bioinformatics programs will have
+<code>man</code> pages, but not all. <code>water</code> doesn&#39;t come with a <code>man</code> page, but
+there is good documentation online at the EMBOSS site. Most
+bioinformatics programs will have a <strong>usage statement</strong> that gives you
+some help with the program. To display the usage statement, try the
+<code>-h</code>, <code>-help</code>, <code>--help</code> options or try using the program without any
+arguments. The <code>water</code> program responds to the first three, but if you
+give it no arguments, it will start prompting you for arguments (which
+can be useful or annoying depending on your mindset).</p>
+
+<p>As you gain more experience with bioinformatics tools, you will find a
+large variety of command line syntaxes and usage statements. Why?
+Because most scientific programmers aren&#39;t professional software
+developers. They don&#39;t always follow the rules and best practices of the
+Unix community.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">water -h
+</code></pre></div>
+<p>There are not may options. We need to provide two sequence files,
+penalties for gap opening and extension, and an output file. The scoring
+matrix appears to BLOSUM62 by default but others are available (see
+<code>/usr/local/share/EMBOSS/data</code>). Let&#39;s try the interactive mode.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">water
+</code></pre></div>
+<p>The program now asks for the name of the input sequence file. You can&#39;t
+tab-complete this. That&#39;s enough reason for me to NEVER USE THE
+INTERACTIVE MODE, but if you like it, go ahead.</p>
+
+<p>So where are we going to get our sequence files from? Let&#39;s grab the
+first protein from the A. thaliana, C. elegans, and D. melanogaster
+proteomes to begin. You can use <code>head</code> with a command line option for
+the number of lines and the <code>&gt;</code> redirection symbol for this task. Save
+these files as <code>at1.fa</code>, <code>ce1.fa</code>, and <code>dm1.fa</code>. You might want to write
+a bit in your <code>lab1_notebook.md</code> file about how you did this. You can
+even paste in parts of your <code>history</code>.</p>
+
+<p>Now let&#39;s try aligning the various files to each other. Note that the
+<code>-asequence</code> and <code>-bsequence</code> are optional. So the following two
+commands are equivalent.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">water -asequence at1.fa -bsequence ce1.fa -gapopen 10 -gapextend 5 -outfile at_ce.water
+water at1.fa ce1.fa -gapopen 10 -gapextend 5 -outfile at_ce.water
+</code></pre></div>
+<p>Read the output of this command with <code>less</code>. Note the score, percent
+identity, percent similarity, and score. Is a score of 37 good? Hmm,
+that&#39;s a difficult question. What exactly does &quot;good&quot; mean? Should a
+good score mean that two sequences are evolutionarily related? That they
+have similar function? As a scientist, one of the first questions you
+should ask yourself is how likely that alignment could have occurred at
+random.</p>
+
+<h2>Part 4: Random Expectation</h2>
+
+<p>We can use the EMBOSS <code>shuffleseq</code> to create related sequences whose
+letters have been mixed up.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">head ce1.fa
+shuffleseq ce1.fa -outseq ce1.shuffle.fa 
+head ce1.shuffle.fa
+</code></pre></div>
+<p>Notice that the sequences are completely different. Now let&#39;s determine
+if they actually have the same number of letters. We&#39;ll use the
+<code>compseq</code> program for that.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">compseq ce1.fa -word 1 -outfile ce1.comp
+compseq ce1.shuffle.fa -word 1 -outfile ce1.shuffle.comp
+less ce1.comp
+less ce1.shuffle.comp
+</code></pre></div>
+<p>They files look pretty similar, but are they <strong>exactly</strong> the same? We can use
+the Unix <code>diff</code> command for that.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">diff ce1.comp ce1.shuffle.comp
+</code></pre></div>
+<p>Nothing happened? Actually, that was very important. <code>diff</code> reports
+which lines are different. If there aren&#39;t any, then there&#39;s nothing to
+report. To verify this, try <code>diff</code>-ing the two sequence files. They
+should have the same FASTA definition line, but completely different
+sequence lines.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">diff ce1.fa ce1.shuffle.fa
+</code></pre></div>
+<p>Well, that&#39;s not quite what happened. Even the FASTA header lines are
+slightly different. Apparently <code>shuffleseq</code> changes whitespace in the
+defline for some reason.</p>
+
+<p>Now let&#39;s try aligning the shuffled C. elegans protein against the A.
+thaliana protein.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">water at1.fa ce1.shuffle.fa -gapopen 10 -gapextend 5 -outfile 1.water
+</code></pre></div>
+<p>Examine the file and look at the score. Use the arrow keys or your
+<code>history</code> to repeat the command you used to create the shuffled
+sequence. This will overwrite your last command. Then do the alignment
+again and look at the score. Repeat this a few more times. As you can
+see, the score changes each time. Do you wonder what the distribution of
+scores looks like? Of course you do. So let&#39;s do this 1000 times.</p>
+
+<p>Wait! Hands off those arrow keys. The <code>shuffleseq</code> program will let us
+make multiple copies of the same sequence. That will make our lives much
+easier.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">shuffleseq ce1.fa -outseq ce1.shuffle.fa -shuffle 1000
+less ce1.shuffle.fa
+water at1.fa ce1.shuffle.fa -gapopen 10 -gapextend 5 -outfile 1k.water
+</code></pre></div>
+<p>Now let&#39;s collect all the scores and make a histogram. The only part of
+each alignment we care about is the score. Fortunately, there&#39;s only one
+place in each alignment that uses the word &#39;Score&#39; so we can pull that
+out with <code>grep</code>.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">grep Score 1k.water
+</code></pre></div>
+<p>To get just the number, we can treat the other characters as &#39;fields&#39; in
+a pseudo-spreadsheet using the <code>cut</code> command with the <code>-d &quot; &quot;</code> option to
+tell it that our fields split on spaces and the <code>-f 3</code> option to tell it
+we want the 3rd column. We can pipe the <code>grep</code> command line above
+directly to the <code>cut</code> command without creating any intermediate files.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">grep Score 1k.water | cut -d &quot; &quot; -f 3
+</code></pre></div>
+<p>Let&#39;s <code>sort</code> this and look at the maximum and minimum values. The <code>-n</code>
+option tells <code>sort</code> to compare numerically rather than alphabetically.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">grep Score 1k.water | cut -d &quot; &quot; -f 3 | sort -n
+</code></pre></div>
+<p>Use <code>head</code> and <code>tail</code> to find the minimum and maximum values. Or you can
+use <code>less</code> and scroll the the output.</p>
+
+<p>There is an odd Unix command called <code>uniq</code> that compares adjacent lines
+in a file and reports when they are not the same. It will count when
+they are not the same with the <code>-c</code> option. We can use that to make a
+histogram.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">grep Score 1k.water | cut -d &quot; &quot; -f 3 | sort -n | uniq -c
+</code></pre></div>
+<p>Boom! This is the distribution of maximum scoring alignments expected at
+random between these two sequences. Answer the following questions in
+your notebook.</p>
+
+<ol>
+<li>Is the shape of the curve normal? Do you expect it to be normal?</li>
+<li>Do you expect all protein comparisons to have the same distribution?</li>
+<li>How would protein composition and length affect the scores?</li>
+<li>How would the scoring matrix and gap penalites affect the scores?</li>
+<li>How might real sequences be different from random?</li>
+</ol>
+
+<h2>Part 5: Alignment Significance</h2>
+
+<p>OK, the training wheels are off and it&#39;s time to do some experiments on
+your own. Your goal is to determine the statistical significance of an
+alignment. The query sequence is B0213.10, which can be found in the C.
+elegans proteome. Search this against all A. thaliana and D.
+melanogaster proteins to find its homologs.</p>
+
+<p>Before you begin, it&#39;s a good idea to get an idea how long it will take
+to do the experiment. Will your experiment take seconds, minutes, hours,
+days, or longer? Before attempting to do the whole experiment, it pays
+to do a small fraction first. Don&#39;t begin until you can answer the
+following questions?</p>
+
+<ul>
+<li>How many amino acids can I align per second?</li>
+<li>How many amino acids do I need to align to do this experiment?</li>
+<li>How long would it take to compare two proteomes?</li>
+</ul>
+
+<p>Write those down in your notebook. Now let&#39;s get back to the experiment.
+You want to find the A. thaliana and D. melanogaster orthologs of
+B0213.10. Set up the experiment any way you like. You need to be able to
+answer the following questions.</p>
+
+<ul>
+<li>What is the best match in each genome?</li>
+<li>What protein is this?</li>
+<li>What are the alignment properties (% identity, etc)</li>
+<li>What is the expected score of your alignment at random?</li>
+<li>How different is your best score from random?</li>
+<li>How statistically significant is this score?</li>
+<li>How biologically significant is this score?</li>
+</ul>
+
+<p>After you have finished all your experiments and commentary, do the
+following</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">ls -lFR ~/Lab1 &gt; ~/lab1_info.txt
+</code></pre></div>
+<h2>Checklist</h2>
+
+<p>Turn in the following files as a tar-ball in SmartSite.</p>
+
+<ol>
+<li>data_info.txt</li>
+<li>lab1_notebook.md</li>
+<li>lab1_info.txt</li>
+</ol>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                <b>Resouces<br />
+                <a href = "http://daringfireball.net/projects/markdown/syntax">Markdown Syntax Guide</a><br />
+                <a href = "/docs/ianCheatSheet.html"> Ian's Unix Cheat Sheet</a><br />
+                <a href="/docs/virtualMachine.html">Installing and Using Virtual Machine</a>
+              </p>
+            </div>
+
+            <div class="contact">
+              <p>
+                
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>
